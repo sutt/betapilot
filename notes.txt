@@ -1,0 +1,19 @@
+2/25
+
+starter_scripts:
+
+    generate_results.py: the place where you build your submission
+
+                        (similiar to TrackFactory class in ppd)
+
+    generate_submission.py: 
+
+        writes to random_submission.json
+
+
+look for people on github with these file names?
+
+
+
+
+
