@@ -118,8 +118,11 @@ TODO
 
     [ ] breakout cocoMAP for individual images / indvidual corners
 
+    [ ] perform search on baseline ideal rect
 
+    [ ] build roiSelect tool (for leader set)
 
+    [ ] bring in pyzbar, try to work it
 
 
 
