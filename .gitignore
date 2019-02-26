@@ -4,3 +4,5 @@ Data_LeaderboardTesting/
 testing/
 misc/
 *.vscode
+.ipynb_checkpoints/*
+.ipynb_checkpoints/
