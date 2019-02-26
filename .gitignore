@@ -1,3 +1,6 @@
 *.zip
 Data_Training/
 Data_LeaderboardTesting/
+testing/
+misc/
+*.vscode

@@ -10,8 +10,80 @@ starter_scripts:
 
         writes to random_submission.json
 
+    
+scorer_scripts:
+
+    score_detections.py
+
+        -g 
+
+    python scorer_scripts_v2/scorer_scripts_v2/score_detections.py -g starter_scripts_v2/starter_scripts_v2/training_GT_labels_v2.json -p starter_scripts_v2/starter_scripts_v2/random_submission.json
 
 look for people on github with these file names?
+lookn for code keywords?
+
+we don't get labels for test dataset,
+    but we could build those our self
+
+iiuc, the leaderboard images are the exact ones we're operating on
+for our score on the leaderboard
+
+what is % score on the leaderboard for accuracy only right?
+
+where in the submission.json is CI being written?
+
+IuC, mAP - define
+
+what is the 9th position in random_submission file? why 0.5?
+    the ground truth only has eight
+
+resolve the labels / "ground truth" file versioning controversy
+    i have v2, it was uploaded when ?
+    when is the latest complaint on the forum ?
+    Feb20 was complaint/response
+
+do we upload code for test2 or only test3?
+
+why does ground truth only have one bounding box?
+
+no gate -> submission should have empty brackets
+
+we can use scorer to figure out the expected score from a naive/baseline avg algo
+    -> avg coord from training_labels.json
+        adjust for vert/horiz align
+        or we can just hand score em
+
+free gpu instances?
+https://www.herox.com/alphapilot/resource/285
+
+most concise description: https://www.herox.com/alphapilot/77-test-2
+
+    The internal clearance is 8ft x 8ft, the external dimensions are 11ft x 11ft, and the depth is 1ft.
+
+    libraries should be compatible with Python 3.5.2
+
+stuff to get:
+
+    shapely package?
+        from wheel in misc/
+            Shapely-1.6.4.post1-cp27-cp27m-win32.whl
+        downloaded here:
+            https://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely
+
+    python3 - need time.monotonic()
+
+TODO
+
+    [x] correct glob issue, path name in submission.json keys
+    [x] run score_detections on training data
+
+        python scorer_scripts_v2/scorer_scripts_v2/score_detections.py -g training_GT_labels_v2.json -p random_submission3.json
+
+    [x] plot in matplotlib in notebook
+
+    [ ] build a avg point submission
+        [ ] get it's score
+        [ ] first, just with inner box
 
 
 
