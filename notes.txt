@@ -81,9 +81,23 @@ TODO
 
     [x] plot in matplotlib in notebook
 
+    [x] cv draw polygon
+    
     [ ] build a avg point submission
-        [ ] get it's score
-        [ ] first, just with inner box
+        [x] get it's score
+        [x] first, just with inner box
+        [x] run pred=truth, cocoMap? 0.91
+        [ ] build mini training set
+        [ ] build second box, score
+        
+        inner rect is 8'x8', and frame is 3'
+            -> ratio is 3/8 *width or 3/8*height
+
+        second box won't help our local score: 
+            the ground truth has no second box!
+
+    [ ] how does generate_submission build something different than
+        our mean_prediction.json?
 
 
 
