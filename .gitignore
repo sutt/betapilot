@@ -7,3 +7,4 @@ misc/
 .ipynb_checkpoints/
 mini/
 *.pyc
+labelling/

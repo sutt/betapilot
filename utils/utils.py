@@ -1,4 +1,7 @@
 import os, sys, copy, random, shutil, json
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
 
 # sample image dir -------------------------------
 
@@ -86,3 +89,73 @@ def makeMini( root_dir = '../mini/'
     
     if b_truth:
         miniTruth(p_dst, truth_input, truth_output)
+
+# plot helpers -------------------------------------------------------
+
+def drawRect(img, rect, color='yellow', thick=3):
+    COLOR = (0, 255, 255)
+    if color == 'blue':
+        COLOR = (255,0,0)
+    return cv2.rectangle(img, rect[0], rect[1], COLOR, thick)
+def drawPoly(img, poly, color='yellow', thick=3):
+    COLOR = (0, 255, 255)
+    if color == 'blue':
+        COLOR = (255,0,0)
+    return cv2.polylines(img, [poly], True, COLOR, thick)
+def answerToRect(answer):
+    a = answer[0]
+    x = [v for i,v in enumerate(a) if i % 2 == 0]
+    y = [v for i,v in enumerate(a) if i % 2 == 1]
+    return ((min(x), min(y)), (max(x), max(y)))  
+def answerToPoints(answer):
+    a = answer[0]
+    x = [v for i,v in enumerate(a) if i % 2 == 0]
+    y = [v for i,v in enumerate(a) if i % 2 == 1]
+    return np.array( [[e[0], e[1]] for e in zip(x,y)] )
+def loadImg(fn, p_training):
+    return cv2.imread(p_training + fn)
+def plotImg(img, rect=None, poly=None):
+    if rect is not None:
+        img = drawRect(img.copy(), rect, thick=10)
+    if poly is not None:
+        img = drawPoly(img.copy(), poly, thick=10)
+    img = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
+    plt.imshow(img)
+
+
+def myPlot( ind
+            ,truth
+            ,poly=None
+            ,p_training = '../Data_Training/Data_Training/'
+            ):
+
+    fn = os.listdir(p_training)[ind]
+    img = loadImg(fn, p_training)
+    answer = truth[fn]
+    rect = answerToRect(answer)
+    if poly is None:
+        poly = answerToPoints(answer)    
+    plotImg(img, poly=poly)
+    plt.show()
+    print fn
+    print poly
+
+# find average --------------------------------------------------------
+
+def meanTruth(truth):
+    ''' return list len-8 of mean of each coord'''
+
+    all_points = []
+    for _item in truth.items():
+        _answer = _item[1]
+        np_points = answerToPoints(_answer)
+        points = np_points.tolist()
+        all_points.append(points)
+
+    has_points = filter(lambda point: point != [], all_points)
+
+    means = [np.mean([_point[p][x] for _point in has_points]) 
+                for p in range(4) for x in range(2)
+            ]
+    
+    return means
