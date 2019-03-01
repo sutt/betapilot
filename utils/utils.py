@@ -3,6 +3,9 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+sys.path.append('../')
+from scorer_scripts_v2.scorer_scripts_v2.score_detections import score
+
 # sample image dir -------------------------------
 
 def uniqueDir(root_dir, fn_root):
@@ -159,3 +162,60 @@ def meanTruth(truth):
             ]
     
     return means
+
+# search for opt average -----------------------------------------------
+
+def newVals(d, val):
+    for k in d:
+        d[k] = val
+    return d
+
+def iterMean(mini_means, truth_mini):
+    ''' for each of 8-coords, try adding/subtract a delta, see if
+        score improves'''
+
+    current_means = copy.copy(mini_means)
+    current_score = 0
+    iter_list = []
+
+    # this must be wrong somewhere?
+
+    for _i in range(10):
+        
+        score_list = []
+        for ind in range(8):
+            for delta in [-20,-10,-5,-1,0,1,5,10, 20]:
+
+                new_means = copy.copy(current_means)
+                new_means[ind] += delta
+
+                predict_new = newVals(copy.deepcopy(truth_mini), [copy.copy(new_means)])
+
+                _score = score(d_predict=predict_new, d_truth=truth_mini)
+
+                score_triple = [ind, delta, _score]
+
+                score_list.append(score_triple)
+
+        score_list.sort(key=lambda e: e[2], reverse=True)
+        
+        # print score_list[:5]
+        best_point = score_list[0]
+        
+        best_ind, best_delta = best_point[0], best_point[1]
+        best_score = best_point[2]
+
+        if best_score <= current_score:
+            break
+            
+        current_score = best_score
+        
+        current_means[best_ind] += best_delta
+        
+        tmp_point = copy.copy(best_point)
+        tmp_point.append(copy.copy(current_means))
+        iter_list.append(tmp_point)
+        
+        print _i
+        
+    return iter_list
