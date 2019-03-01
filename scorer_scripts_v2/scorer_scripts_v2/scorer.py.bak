@@ -32,7 +32,7 @@ class mAPScorer():
             GT_box = GT_data[img_key]
             # get prediction boxes stored as Nx9
             # np array x1,y1,....,x4,y4, confidence
-            if img_key in list(pred_data.keys()):
+            if img_key in pred_data.keys():
                 pred_box = pred_data[img_key]
             else:
                 pred_box = []
@@ -61,7 +61,7 @@ class mAPScorer():
             GT_box = GT_data[img_key]
             # get prediction boxes stored as
             # Nx9 np array x1,y1,....,x4,y4, confidence
-            if img_key in list(pred_data.keys()):
+            if img_key in pred_data.keys():
                 pred_box = pred_data[img_key]
             else:
                 pred_box = [[]]

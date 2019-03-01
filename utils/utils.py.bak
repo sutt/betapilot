@@ -37,8 +37,8 @@ def randomCopy(p_src, p_dest, N):
         shutil.copy(fn_src, fn_dst)
     
     fns = os.listdir(p_dest)
-    print((len(fns)))
-    print((str(fns[:min(len(fns), 3)]) + '...'))
+    print(len(fns))
+    print(str(fns[:min(len(fns), 3)]) + '...')
 
 
 def miniTruth(p_dst, truth_input, truth_output):
@@ -62,9 +62,9 @@ def miniTruth(p_dst, truth_input, truth_output):
         json.dump(d_truth, f)
         
     if truth_output in os.listdir(p_dst):
-        print(('output truth ', truth_output))
+        print('output truth ', truth_output)
     else:
-        print(('failed to output truth to: ', str(p_dst)))    
+        print('failed to output truth to: ', str(p_dst))    
 
 
 def makeMini( root_dir = '../mini/'

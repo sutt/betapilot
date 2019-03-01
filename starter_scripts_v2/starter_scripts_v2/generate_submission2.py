@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 from random import shuffle
 
-from generate_results import *
+from .generate_results import *
 import time
 
 training_path = 'Data_Training/Data_Training/'
@@ -38,8 +38,8 @@ mean_time = np.mean(time_all)
 ci_time = 1.96*np.std(time_all)
 freq = np.round(1/mean_time,2)
     
-print('95% confidence interval for inference time is {0:.2f} +/- {1:.4f}.'.format(mean_time,ci_time))
-print('Operating frequency from loading image to getting results is {0:.2f}.'.format(freq))
+print(('95% confidence interval for inference time is {0:.2f} +/- {1:.4f}.'.format(mean_time,ci_time)))
+print(('Operating frequency from loading image to getting results is {0:.2f}.'.format(freq)))
 
 with open('random_submission3.json', 'w') as f:
     json.dump(pred_dict, f)
