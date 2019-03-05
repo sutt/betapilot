@@ -200,7 +200,7 @@ TODO
             [WORKS!]
             >pip3 install misc/Shapely-1.6.4.post1-cp37-cp37m-win_amd64.whl
 
-        [ ] 2to3? to fix my modules?
+        [x] 2to3? to fix my modules?
 
             doc: https://docs.python.org/3.7/library/2to3.html
 
@@ -210,9 +210,30 @@ TODO
 
             [x] how to call recursively on directory[s] of .py files
 
+            main diffs:
+                dict.keys() does not return list
+                print
+
 
             thoughts:
             i rely on python2 division style to return a rounded int , how can i insure this stays in py3?
+
+        [x] TF tutorial on MNIST?
+
+            https://towardsdatascience.com/image-classification-in-10-minutes-with-mnist-dataset-54c35b77a38d
+
+            [x] Complete it: ~50 secs per epoch
+            [ ] how to predict a point in the image
+
+            [x] do regression example
+
+            https://www.tensorflow.org/tutorials/keras/basic_regression
+
+            
+        [ ] build point in image in MNIST example
+
+            [ ] min/max v/h example
+
 
 
         Package               Version
