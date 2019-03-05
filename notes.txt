@@ -229,10 +229,36 @@ TODO
 
             https://www.tensorflow.org/tutorials/keras/basic_regression
 
-            
+    3/5
+
         [ ] build point in image in MNIST example
 
-            [ ] min/max v/h example
+            [x] min/max v/h example
+
+                [~] new_truth as float? un-nec
+
+            [ ] add new_truth for x_test
+            
+            [ ] need to encapsulate model building and do full-cycle
+                on multiple 
+
+            [ ] need a better way to 
+
+            [ ] is there a way to see results of history  at 
+                granularity less than an epoch?
+
+            [ ] cut down train size; increase epochs
+
+
+        [ ] tensorflow import not recognized by python-language-server
+        
+            https://github.com/Microsoft/python-language-server
+
+            https://github.com/Microsoft/python-language-server/issues/453
+
+            tf.__version__ == 1.13.1
+
+
 
 
 
