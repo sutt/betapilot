@@ -86,23 +86,37 @@ class ModelBuilder():
         
         data = img_list.copy()
         
-        len_data = data.shape[0]
-        img_x, img_y = data[0].shape[0], data[0].shape[1]
+        if len(data[0].shape) == 2:
+            
+            #only if it's grayscale
+            len_data = data.shape[0]
+            img_x, img_y = data[0].shape[0], data[0].shape[1]
         
-        data = data.reshape(len_data, img_x, img_y, 1)
+            data = data.reshape(len_data, img_x, img_y, 1)
         
         data = data.astype('float32')
         
         return data
 
     @staticmethod
-    def eval(model, x, y):
-        ret = model.evaluate(x=x,y=y,verbose=0)
-        return ret
+    def eval(model, x, y, names=False):
+        ''' evaluate the model, use names=True to understand
+            what each number in output list represents '''
+        
+        if names:
+            names_list = []
+            names_list.append(model.loss)
+            names_list.extend(
+                [_metric.name for _metric in model.metrics]
+            )
+            print('var_names for eval: ', str(names_list))
+        
+        eval_list = model.evaluate(x=x,y=y,verbose=0,)
+        return eval_list
 
     @staticmethod
-    def plotPredVsActual(model, test_y, y_hat):
-        plt.scatter(list(test_y), y_hat)
+    def plotPredVsActual(truth, predicted):
+        plt.scatter(list(truth), predicted)
         plt.xlabel('truth')
         plt.ylabel('predicted')
         high = plt.xlim()[1]
@@ -111,7 +125,7 @@ class ModelBuilder():
         plt.plot([-100, 100], [-100, 100])
 
     @staticmethod
-    def plotHistory(history):
+    def plotHistory(history, y_high=5):
 
         hist = pd.DataFrame(history.history)
         hist['epoch'] = history.epoch
@@ -126,7 +140,7 @@ class ModelBuilder():
             plt.plot(hist['epoch'], hist['val_mean_absolute_error'],
                     label = 'Val Error')
         
-        plt.ylim([0,5])
+        plt.ylim([0,y_high])
         plt.legend()
         
         # plt.figure()
