@@ -39,7 +39,7 @@ class DataXPrep:
         _data = self.data.copy()
 
         if b_resize:
-            _data = self.resizeImgs_static(_data)
+            _data = self.resizeImgs_static(_data, width=resize_width)
         if b_cvt_grayscale:
             _data = self.cvtGrayscale_static(_data)
 

@@ -32,7 +32,12 @@ class ModelBuilder():
         return (self.models, self.modelParams, self.modelSummary)
 
     def buildModel(self,
-                   input_shape=None
+                   input_shape=None,
+                   filters=28,
+                   kernel_n=3,
+                   dense_units=128,
+                   dropout_frac=0.2,
+                   lr=0.001
                    ):
 
         if input_shape is None:
@@ -43,14 +48,15 @@ class ModelBuilder():
             return
 
         _model = Sequential()
-        _model.add(Conv2D(28, kernel_size=(3,3), input_shape=input_shape))
+        _model.add(Conv2D(filters, kernel_size=(kernel_n,kernel_n), 
+                            input_shape=input_shape))
         _model.add(MaxPooling2D(pool_size=(2, 2)))
         _model.add(Flatten()) 
-        _model.add(Dense(128, activation=tf.nn.relu))
-        _model.add(Dropout(0.2))
+        _model.add(Dense(dense_units, activation=tf.nn.relu))
+        _model.add(Dropout(dropout_frac))
         _model.add(Dense(1))
         
-        opt = tf.keras.optimizers.RMSprop(0.001)
+        opt = tf.keras.optimizers.RMSprop(lr)
         
         _model.compile(optimizer= opt, 
                     loss='mean_squared_error', 
