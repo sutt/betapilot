@@ -253,11 +253,11 @@ TODO
                 Conv3D? - no,
                 grayscale appears to train faster
 
-            [ ] downsize + grayscale images
+            [x] downsize + grayscale images
 
-            [ ] train
+            [x] train
 
-        [ ] cartesian distance + cocoMAP eval
+        [x] cartesian distance + cocoMAP eval
             [ ] from two predicted number -> point -> distance
 
 
@@ -265,21 +265,22 @@ TODO
 
     3/7
 
-        [ ] refresh on current book: hello_alpha_tf
-            [ ] predVsActual for current model
-            [ ] fix plotLabel to accept pred vs actual entries
-            [ ] plotLabel for best-fits / worst-fits
-            [ ] use seed for reproducible random sampling
+        [x] refresh on current book: hello_alpha_tf
+            [x] predVsActual for current model
+            [x] fix plotLabel to accept pred vs actual entries
+            [x] plotLabel for best-fits / worst-fits
+            [x] use seed for reproducible random sampling
 
         [ ] some useful features: 
-            [ ] how to run a model.fit in the background? say with 25% cpu?
+            [~] how to run a model.fit in the background? say with 25% cpu?
                 we can tie-up our notebook kernel, so need to run in separate
                 kernel; how to get data and model-definition intialized there?
                 how to return the data back into current kernel?
+                ->works decently well with full cpu, yielding to other processes
             [x] what do the elements in the list return by model.evaluate() mean?
                 -> run with verbose to see
             [ ] use epoch-callback to record training time
-            [ ] how to presist a trained-model to disk? definition/config + weights?
+            [x] how to presist a trained-model to disk? definition/config + weights?
 
         [ ] validation classes/methods for data
             [ ] how to raise errors/warnings
@@ -289,10 +290,30 @@ TODO
             [ ] show all the learning curves on one plot
 
         4:00 - 5:00
-            [ ] create a git checkpoint
-            [ ] start a long model run on
-            [ ] start a new book with encapsulated functions
-            [ ] come back and figure out how to save the model's config
+            [x] create a git checkpoint
+            [x] start a long model run on - on y1
+            [x] start a new book with encapsulated functions
+            [x] come back and figure out how to save the model's config
+
+        8:30 - 9:00
+            [ ] Get a long training run to kickoff:
+                [ ] new notebook
+                [ ] design a iter loop to do a point
+                [ ] high data, high validation
+                [ ] Metrics:   
+                    [ ] Larger Filter,
+                    [ ] Larger Images,
+                    [ ] Larger Training Set
+                [ ] first test it low epoch for multi-iteration
+
+
+        Notes:
+            it looks like the time bottleneck is training img
+            so we can give in a large N with a large validation split
+            and still have almost the same amount of time-perf, true?
+            -> there is a large diff between test/training for 
+                predVsActual, so somehow the epoch callback knows this
+                when printing out mae_training
             
 
 

@@ -25,7 +25,7 @@ class DataXPrep:
     '''
     
     def __init__(self, data=None):
-        self.data = None
+        self.data = data
         self.data_t = None
         self.data_params = None
 
@@ -50,10 +50,19 @@ class DataXPrep:
         data_params = {
             'b_resize': b_resize
             ,'resize_width': resize_width
-            ,'b_grayscale': b_grayscale
+            ,'b_grayscale': b_cvt_grayscale
 
         }
         self.data_params = data_params
+
+    def getImgTShape(self):
+        return self.data_t[0].shape
+
+    def getImgShape(self):
+        return self.data[0].shape
+
+    def getDataT(self):
+        return self.data_t.copy()
     
     def normData(self, **kwargs):
         return self.normData_static(self.data)
@@ -87,17 +96,18 @@ class DataXPrep:
         
         return data
     
-    def normData_validate(self, img_list):
+    @classmethod
+    def normData_validate(cls, img_list):
         try:
             assert isinstance(img_list, np.ndarray)
             assert len(img_list.shape) == 4
             assert img_list.shape[3] in [1,3] #color-channel is 1 or 3
         except Exception as e:
             print('failed to validate normed data in %s with err: %s'
-                % (str(self.__class__.__name__), str(e))
+                % (str(cls.__class__.__name__), str(e))
             )
 
-    
+    @staticmethod
     def resizeImgs_static(img_list, width=108):
         ''' list of imgs -> list of imgs
             imgs changes size: but preserves number of color channels
@@ -119,6 +129,7 @@ class DataYPrep:
     def __init__(self):
         self.data = None
 
+    @staticmethod
     def normData_static(scalar_list):
         ''' make a list of scalars into a np array '''
         

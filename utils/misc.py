@@ -31,10 +31,19 @@ def contrivedLabel(img, ret='min_y'):
     if ret == 'max_x':
         return max_y
 
-def plotLabel(img, y=None, x=None, point=None):
-    plt.imshow(img, cmap='gray')
+def plotLabel(img, y=None, x=None, point=None, point_pred=None
+                ,b_cvt=False, b_gray=False):
+    
+    if b_cvt:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    if b_gray:
+        plt.imshow(img, cmap='gray')
+    else:
+        plt.imshow(img)
     if point is not None:
-        plt.scatter(point[0], point[1])
+        plt.scatter(point[0], point[1], c='b')
+    if point_pred is not None:
+        plt.scatter(point_pred[0], point_pred[1], c='y')
     if y is not None:
         plt.scatter(1, y)
     if x is not None:
